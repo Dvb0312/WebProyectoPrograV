@@ -76,9 +76,9 @@
                             CommandArgument='<%# Eval("IdEmpleado") %>'
                             OnClientClick="return confirm('¿Está seguro de eliminar este empleado?');" />
                         
-                        <asp:Button ID="btnReportes" runat="server" Text="Reportes"
+                        <asp:Button ID="btnConstanciaSalarial" runat="server" Text="Constancia Salarial"
                             CssClass="btn btn-info"
-                            CommandName="Reportes"
+                            CommandName="ConstanciaSalarial"
                             CommandArgument='<%# Eval("IdEmpleado") %>' />
                     </ItemTemplate>
                 </asp:TemplateField>

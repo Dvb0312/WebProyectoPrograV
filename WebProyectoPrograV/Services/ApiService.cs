@@ -1,14 +1,14 @@
-﻿using System;
+﻿using API_Proyecto_PrograV.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
 using System.Configuration;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using System.Web;
 using WebProyectoPrograV.Models;
 
 namespace WebProyectoPrograV.Services
@@ -306,6 +306,79 @@ namespace WebProyectoPrograV.Services
                 catch (Exception ex)
                 {
                     throw new ApplicationException("Error al autenticar: " + ex.Message);
+                }
+            }
+        }
+        #endregion
+        #region Constancias Salariales
+        public static async Task<int> CrearConstanciaSalarialAsync(CrearConstanciaSalarialDto constancia)
+        {
+            using (var client = CreateClient())
+            {
+                try
+                {
+                    var json = JsonConvert.SerializeObject(constancia);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+                    var response = await client.PostAsync("api/ConstanciaSalarial", content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var responseJson = await response.Content.ReadAsStringAsync();
+                        var result = JsonConvert.DeserializeObject<dynamic>(responseJson);
+                        return (int)result.id; // El controller devuelve { Id = id }
+                    }
+
+                    throw new ApplicationException($"Error al crear constancia salarial: {response.StatusCode}");
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error al crear constancia salarial: " + ex.Message);
+                }
+            }
+        }
+
+        public static async Task<List<ConstanciaSalarialModel>> ObtenerConstanciasSalarialesAsync(int? idEmpleado = null)
+        {
+            using (var client = CreateClient())
+            {
+                try
+                {
+                    var url = "api/ConstanciaSalarial";
+                    if (idEmpleado.HasValue)
+                        url += $"?idEmpleado={idEmpleado}";
+
+                    var response = await client.GetAsync(url);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var json = await response.Content.ReadAsStringAsync();
+                        return JsonConvert.DeserializeObject<List<ConstanciaSalarialModel>>(json);
+                    }
+                    return new List<ConstanciaSalarialModel>();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error al obtener constancias salariales: " + ex.Message);
+                }
+            }
+        }
+
+        public static async Task<ConstanciaSalarialModel> ObtenerConstanciaSalarialPorIdAsync(int id)
+        {
+            using (var client = CreateClient())
+            {
+                try
+                {
+                    var response = await client.GetAsync($"api/ConstanciaSalarial/{id}");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var json = await response.Content.ReadAsStringAsync();
+                        return JsonConvert.DeserializeObject<ConstanciaSalarialModel>(json);
+                    }
+                    return null;
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error al obtener constancia salarial: " + ex.Message);
                 }
             }
         }

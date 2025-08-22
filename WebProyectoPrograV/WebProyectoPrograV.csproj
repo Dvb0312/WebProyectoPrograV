@@ -200,6 +200,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Dashboard.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="EmpleadoConstanciaSalarial.aspx" />
     <Content Include="EmpleadoForm.aspx" />
     <Content Include="EmpleadoReportes.aspx" />
     <Content Include="Empleados.aspx" />
@@ -298,6 +299,13 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="EmpleadoConstanciaSalarial.aspx.cs">
+      <DependentUpon>EmpleadoConstanciaSalarial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EmpleadoConstanciaSalarial.aspx.designer.cs">
+      <DependentUpon>EmpleadoConstanciaSalarial.aspx</DependentUpon>
+    </Compile>
     <Compile Include="EmpleadoForm.aspx.cs">
       <DependentUpon>EmpleadoForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -329,6 +337,7 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ConstanciaSalarialModel.cs" />
     <Compile Include="Models\DepartamentoModel.cs" />
     <Compile Include="Models\EmpleadoModel.cs" />
     <Compile Include="Models\LoginRequest.cs" />
